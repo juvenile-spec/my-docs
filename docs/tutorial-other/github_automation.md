@@ -193,21 +193,21 @@ jobs.<job_id>.steps.env：该步骤所需的环境变量。
 ### 4.3  步骤
 1. 打开刚刚GitHub新建项目的首页，选择Actions
 
-![img.png](img.png)
+![img.png](github_automation/img.png)
 
 2. 选择 set up a workflow yourself 新建（也可以选择模板，看个人需求。）
 
-![img_1.png](img_1.png)
+![img_1.png](github_automation/img_1.png)
 
 3. 三部曲
 
-![img_2.png](img_2.png)
+![img_2.png](github_automation/img_2.png)
 
-![img_3.png](img_3.png)
+![img_3.png](github_automation/img_3.png)
 
 初始会运行一次有个小绿灯
 
-![img_4.png](img_4.png)
+![img_4.png](github_automation/img_4.png)
 
 4. 修改刚刚那个生成的.yml 代码
 
@@ -262,13 +262,13 @@ jobs:
 
 5. 配置密钥
 
-![img_5.png](img_5.png)
-![img_6.png](img_6.png)
-![img_7.png](img_7.png)
-![img_8.png](img_8.png)
+![img_5.png](github_automation/img_5.png)
+![img_6.png](github_automation/img_6.png)
+![img_7.png](github_automation/img_7.png)
+![img_8.png](github_automation/img_8.png)
 
 6. 完结
 
 配置完推送到GitHub可以点击详情查看。
-![img_4.png](img_4.png)
+![img_4.png](github_automation/img_4.png)
 
