@@ -42,7 +42,10 @@ const sidebars = {
       label: '其他杂项',
       collapsible: true,
       collapsed: false,
-      items: ['tutorial-other/naming-notations'],
+      items: [
+          'tutorial-other/naming-notations',
+          'tutorial-other/GitHub_automation'
+      ],
     },
   ],
 
