@@ -14,7 +14,7 @@ const Index = memo(() => {
         <div>
           <Logo className={styles.headPortrait}/>
         </div>
-        <div className={styles.name}>吴周伟</div>
+        <div className={styles.name}>吴周伟(test)</div>
         <div className={styles.job}>(前端开发)</div>
         <div>
           <Link href='//github.com/wuzhouwei'>
