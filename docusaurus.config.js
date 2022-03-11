@@ -15,6 +15,17 @@ const config = {
   organizationName: 'wu', // Usually your GitHub org/user name.
   projectName: 'shen', // Usually your repo name.
 
+
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        hashed: true,
+        language: ["en", "zh"],
+        ignoreFiles:/^js.*md$/,
+      },
+    ],
+  ],
   presets: [
     [
       'classic',
@@ -31,7 +42,7 @@ const config = {
         },
       }),
     ],
-  ],
+],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
