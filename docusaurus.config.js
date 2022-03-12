@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'My docs',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'http://nslsp.xyz', //主站域名
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -15,6 +15,9 @@ const config = {
   organizationName: 'wu', // Usually your GitHub org/user name.
   projectName: 'shen', // Usually your repo name.
 
+  scripts:[ //百度统计
+    {src: 'https://hm.baidu.com/hm.js?e70978813ac95003240f0f04122779fa',  async: true}
+  ],
 
   themes: [
     [
@@ -82,7 +85,10 @@ const config = {
           },
         ],
       },
-      metadata: [{name: 'keywords', content: '个人参考，个人总结，react，ts，给自己使用的文档。'}],
+      metadata: [
+        {name: 'keywords', content: '个人参考，个人总结，react，ts，给自己使用的文档。'},
+        {name: 'author', content: 'wzw'}
+      ],
       footer: {
         style: 'dark',
         copyright: `Copyright © ${new Date().getFullYear()}吴某人个人记录.浙ICP备2021040479号`,
