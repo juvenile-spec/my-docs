@@ -16,37 +16,44 @@ keywords: [nginx, nginx执行, nginx说明方法, nginx配置案例]
 
 ## 2.下载
 
-从<http://nginx.org/download/>上下载相应的版本(或者直接在**wget http://nginx.org/download/nginx-1.5.9.tar.gz** Linux上用命令下载)
+从<http://nginx.org/download/>上下载相应的版本(或者直接在**wget http://nginx.org/download/nginx-1.17.6.tar.gz** Linux上用命令下载)
 
 ## 3.解压
 
-解压 tar -zxvf nginx-1.5.9.tar.gz
+解压 tar -zxvf nginx-1.17.6.tar.gz
 
 解压好后移至目录
 
 ```
-[root@instance-3lm099to nginx]# cd nginx-1.5.9/
+[root@instance-3lm099to nginx]# cd nginx-1.17.6/
 ```
 
-设置Nginx安装路径，如果没有指定，默认为/usr/local/nginx
+**二选一**
+>设置Nginx安装路径，如果没有指定，默认为/usr/local/nginx
 
 ```
-[root@instance-3lm099to nginx-1.14.0]# ./configure --prefix=/usr/local/nginx
+[root@instance-3lm099to nginx-1.17.6]# ./configure --prefix=/usr/local/nginx
 checking for OS
  + Linux 3.10.0-862.3.2.el7.x86_64 x86_64
 checking for C compiler ... not found
+```
+>需要安装ssl 的用下面这个避免后期繁琐
+
+```
+[root@instance-3lm099to nginx-1.17.6]# ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
+
 ```
 
 如果出现checking for C compiler ... not found错误，需要执行下
 
 ```
-[root@instance-3lm099to nginx-1.14.0]# yum -y install gcc gcc-c++ autoconf automake make
+[root@instance-3lm099to nginx-1.17.6]# yum -y install gcc gcc-c++ autoconf automake make
 ```
 
 再次执行
 
 ```
-[root@instance-3lm099to nginx-1.14.0]# ./configure --prefix=/usr/local/nginx
+[root@instance-3lm099to nginx-1.17.6]# ./configure --prefix=/usr/local/nginx
 ```
 
 可能会出现这个错误
@@ -61,25 +68,25 @@ statically from the source with nginx by using --with-pcre=<path> option.
 如果出现了，就执行下这个
 
 ```
-[root@instance-3lm099to nginx-1.14.0]# yum -y install openssl openssl-devel
+[root@instance-3lm099to nginx-1.17.6]# yum -y install openssl openssl-devel
 ```
 
 ## 4.编译
 
 ```
-[root@instance-3lm099to nginx-1.14.0]# make
+[root@instance-3lm099to nginx-1.17.6]# make
 ```
 
 ## 5.安装
 
 ```
-[root@instance-3lm099to nginx-1.14.0]# make install
+[root@instance-3lm099to nginx-1.17.6]# make install
 ```
 
 ## 6.启动
 
 ```
-[root@instance-3lm099to nginx-1.14.0]# /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+[root@instance-3lm099to nginx-1.17.6]# /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
 ```
 
 ## 7.停止
@@ -280,3 +287,26 @@ http {
 
 ```
 
+
+## 8.卸载nginx
+
+### 查看nginx相关文件
+```
+[root@instance-3lm099to nginx]# whereis nginx
+```
+
+### 查找nginx相关文件
+```
+[root@instance-3lm099to nginx]# find / -name nginx
+```
+
+### 删除nginx相关文件
+
+```
+[root@instance-3lm099to nginx]# rm -rf [上面查找到相关到nginx文件]
+```
+### 使用yum清理nginx相关文件
+
+```
+[root@instance-3lm099to nginx]# yum remove nginx
+```
