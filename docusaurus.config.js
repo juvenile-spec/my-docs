@@ -69,12 +69,12 @@ const config = {
             position: 'left'
           },*/
           {
-            href: '//139.198.117.53:3081',
+            href: 'http//139.198.117.53:3081',
             label: '图片demo',
             position: 'left',
           },
           {
-            href: '//139.198.117.53:3082',
+            href: 'http//139.198.117.53:3082',
             label: 'blog',
             position: 'left',
           },
