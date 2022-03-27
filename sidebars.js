@@ -20,8 +20,21 @@ const sidebars = {
   tutorialSidebar: [
     {
       type: 'doc',
-      id:'summary',
-      label: 'js自我总结',
+      id:'readMe',
+      label: '自述',
+    },
+    {
+      type: 'category',
+      label: '自我总结',
+      collapsible: true,
+      collapsed: false,
+      items: [
+        'tutorial-zwzj/zwzj_js',
+        'tutorial-zwzj/zwzj_react',
+        'tutorial-zwzj/zwzj_git',
+        'tutorial-zwzj/zwzj_webpack',
+        'tutorial-zwzj/zwzj_http_respond',
+      ],
     },
     {
       type: 'category',

@@ -1,24 +1,20 @@
 ---
-id: js_summary
-title: js自我总结
+id: zwzj_js
+title: js部分
 tags:
-  - react
   - js基础
   - js常用方法
 description: 这是一个js内容中间的页面，总结了大部分js常用方法及基础介绍。
-keywords: [react, js, js基础]
+keywords: [js, js基础]
 ---
 
 
- >**<a href="./summary">返回上一页</a>**
 
 ## 1.js执行机制
 
-<img src="https://img-blog.csdnimg.cn/20200520171957479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjY2MzQ2MQ==,size_16,color_FFFFFF,t_70" alt="js"  />
-
-<img src="https://img-blog.csdnimg.cn/20200520201948552.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjY2MzQ2MQ==,size_16,color_FFFFFF,t_70" alt="js"  />
-
-<img src="https://img-blog.csdnimg.cn/20190214094730128.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODMzMDAx,size_16,color_FFFFFF,t_70" alt="js" />
+![js执行机制1](image/js_zxjz1.png)
+![js执行机制2](image/js_zxjz2.png)
+![js执行机制3](image/js_zxjz3.png)
 
 1. 同步任务:会立即执行的任务
 2. 异步任务:不会立即执行的任务(异步任务又分为宏任务与微任务)
@@ -63,201 +59,9 @@ keywords: [react, js, js基础]
 当页面的某部分元素的外观发生了改变，但尺寸、位置、隐藏没有改变，页面进行重绘。（同样，只重绘部分元素，而不是整个页面重绘）  
 **回流的同时往往会伴随着重绘，重绘不一定导致回流。**所以回流导致的代价是大于重绘的。
 
-## 3.react系列
-
-### 1.父子组件传值(类组件)
-
-#### 父组件调用子组件方法及传参
-
-**父组件:**
-
-```js
-export default class Fz extends Component {
-  handleF=()=>{
-     this.refsz.method('父组件调用了')
-  }
-  render() {
-    return (
-      <div >
-        <Button onClick={this.handleF}>父组件按钮</Button>
-        <Add refsZ={el=>this.refsz=el}/>
-      </div>
-    )
-  }
-}
-```
-
-**子组件:**
-
-```js
-export default class Add extends Component {
-  componentDidMount() {
-    this.props.refsZ(this)
-  }
-  method(arg){
-      console.log(arg,'子组件的方法')
-  }
-    render() {
-        return  <></>
-    }
-}
-```
-
-#### 子组件调用父组件方法及传参
 
 
-
-**父组件:**
-
-```js
-export default class Fz extends Component {
-  handleF=(...arg)=>{
-     console.log(arg,'(我是父组件方法)')
-  }
-  render() {
-    return (
-      <div >
-        <Add click={this.handleF}/>
-      </div>
-    )
-  }
-}
-```
-
-**子组件:**
-
-```js
-export default class Add extends Component {
-  handleClick=(e)=>{
-    this.props.click('(子组件调用父组件方法给父组件传值)','(方案2)',e)
-  }
-    render() {
-    const {click} = this.props
-        return  <>
-          <Button onClick={click.bind(this,'(子组件调用父组件方法给父组件传值)','(方案1)')}>
-          	我是子组件的按钮1
-          </Button>
-          <Button onClick={this.handleClick}>我是子组件的按钮2</Button>
-        </>
-    }
-}
-```
-
-### 2.ref获取DOM(类组件)
-
-```js
-export default class Fz extends Component {
-  constructor(props) {
-    super(props);
-    this.MyRef = React.createRef()
-  }
-  handleClick=_=>{
-    console.log(this.MyRef.current.value)
-  }
-  render() {
-    return (
-      <div>
-        <input type="text" ref={this.MyRef}/>
-        <Button onClick={this.handleClick}>获取</Button>
-      </div>
-    )
-  }
-}
-```
-
-### 3.React 中的 props 是什么state是什么?
-
->**props**
-
-**`props(只读组件)`是一个从外部传进组件的参数，主要作为就是从父组件向子组件传递数据，它具有可读性和不变性，只能通过外部组件主动传入新的`props`来重新渲染子组件，否则子组件的`props`以及展现形式不会改变。**
-
->**state**
-
-**`state(状态)`的主要作用是用于组件保存、控制以及修改自己的状态，它只能在`constructor`中初始化，它算是组件的私有属性，不可通过外部访问和修改，只能通过组件内部的`this.setState`来修改，修改`state`属性会导致组件的重新渲染。**
-
-**区别**
-
-1. `state`是组件自己管理数据，控制自己的状态，可变；
-2. `props`是外部传入的数据参数，不可变；
-3. 没有`state`的叫做无状态组件，有`state`的叫做有状态组件；
-4. 多用`props`，少用`state`。也就是多写无状态组件。
-5. `props`用于定义外部接口，`state`用于记录内部状态
-6. `props`的赋值在于外部世界使用组件，`state`的赋值在于组件内部
-7. 组件不应该改变`props`的值，而`state`存在的目的就是让组件来修改的
-
-### 4.生命周期
-
-![生命周期](https://segmentfault.com/img/remote/1460000020269045 "react生命周期")
-
-> **React 16.3+**
-
-- **getDerivedStateFromProps(nextProps, prevState):** 在调用`render()`之前调用，并在 *每次* 渲染时调用。 需要使用派生状态的情况是很罕见得。值得阅读 [如果你需要派生状态](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html).
-- **componentDidMount:** 首次渲染后调用，所有得 Ajax 请求、DOM 或状态更新、设置事件监听器都应该在此处发生。
-- **shouldComponentUpdate:** 确定组件是否应该更新。 默认情况下，它返回`true`。 如果你确定在更新状态或属性后不需要渲染组件，则可以返回`false`值。 它是一个提高性能的好地方，因为它允许你在组件接收新属性时阻止重新渲染。
-- **getSnapshotBeforeUpdate(nextProps, prevState):** 在最新的渲染输出提交给 DOM 前将会立即调用，这对于从 DOM 捕获信息（比如：滚动位置）很有用。
-- **componentDidUpdate:** 它主要用于更新 DOM 以响应 prop 或 state 更改。 如果`shouldComponentUpdate()`返回`false`，则不会触发。
-- **componentWillUnmount** 当一个组件被从 DOM 中移除时，该方法被调用，取消网络请求或者移除与该组件相关的事件监听程序等应该在这里进行。
-
-> **Before 16.3**
-
-- **componentWillMount:** 在组件`render()`前执行，用于根组件中的应用程序级别配置。应该避免在该方法中引入任何的副作用或订阅。
-- **componentDidMount:** 首次渲染后调用，所有得 Ajax 请求、DOM 或状态更新、设置事件监听器都应该在此处发生。
-- **componentWillReceiveProps (nextProps):** 在组件接收到新属性前调用，若你需要更新状态响应属性改变（例如，重置它），你可能需对比`this.props`和`nextProps`并在该方法中使用`this.setState()`处理状态改变。
-- **shouldComponentUpdate(nextProps,nextState):** 确定组件是否应该更新。 默认情况下，它返回`true`。 如果你确定在更新状态或属性后不需要渲染组件，则可以返回`false`值。 它是一个提高性能的好地方，因为它允许你在组件接收新属性时阻止重新渲染。
-- **componentWillUpdate (nextProps,nextState):** 当`shouldComponentUpdate`返回`true`后重新渲染组件之前执行，注意你不能在这调用`this.setState()`
-- **componentDidUpdate(prevProps,prevState):** 它主要用于更新 DOM 以响应 prop 或 state 更改。 如果`shouldComponentUpdate()`返回`false`，则不会触发。
-- **componentWillUnmount:** 当一个组件被从 DOM 中移除时，该方法被调用，取消网络请求或者移除与该组件相关的事件监听程序等应该在这里进行。
-
-### 5.什么是高阶组件（HOC）?
-
-*高阶组件*(*HOC*) 就是一个函数，且该函数接受一个组件作为参数，并返回一个新的组件，它只是一种模式，这种模式是由`react`自身的组合性质必然产生的。
-
-我们将它们称为**纯组件**，因为它们可以接受任何动态提供的子组件，但它们不会修改或复制其输入组件中的任何行为。
-
-```js
-const EnhancedComponent = higherOrderComponent(WrappedComponent)
-```
-
-**HOC 有很多用例：**
-
-1. 代码复用，逻辑抽象化
-2. 渲染劫持
-3. 抽象化和操作状态（`state`）
-4. 操作属性（`props`）
-
-### 6.如何实现 Server Side Rendering 或 SSR?
-
-React 已经配备了用于处理 Node 服务器上页面渲染的功能。你可以使用特殊版本的 DOM 渲染器，它遵循与客户端相同的模式。
-
-```js
-import ReactDOMServer from 'react-dom/server'
-
-import App from './App'
-
-ReactDOMServer.renderToString(<App />)
-```
-
-此方法将以字符串形式输出常规 HTML，然后将其作为服务器响应的一部分放在页面正文中。在客户端，React 检测预渲染的内容并无缝地衔接。
-
-### 7.最流行的动画软件包是什么?
-
-***React Transition Group*** 和 ***React Motion*** 是React生态系统中流行的动画包。
-
-### 8.redux
-
-#### Redux 遵循三个基本原则：
-
-1. **单一数据来源：** 整个应用程序的状态存储在单个对象树中。单状态树可以更容易地跟踪随时间的变化并调试或检查应用程序。
-2. **状态是只读的：** 改变状态的唯一方法是发出一个动作，一个描述发生的事情的对象。这可以确保视图和网络请求都不会直接写入状态。
-3. **使用纯函数进行更改：** 要指定状态树如何通过操作进行转换，您可以编写reducers。Reducers 只是纯函数，它将先前的状态和操作作为参数，并返回下一个状态。
-
-**工作流程**
-
-**工作流程**是 view 调用 store 的 dispatch 接收 action 传入 store，reducer 进行 state 操作，view 通过 store 提供的 getState 获取最新的数据
-
-
-
-## 4.js基础
+## 3.js基础
 
 ### 1.原型与原型链与继承
 
@@ -635,7 +439,7 @@ c =null;
 
 
 
-## 5.es6常用总结
+## 4.es6常用总结
 
 
 
@@ -1175,7 +979,7 @@ let point2 = new Point2({x:1,y:2,z:3})
 console.log(point2,point2.say(),point2.say2());//Point2 {x: 1, y: 2, z: 3} 3 6
 ```
 
-## 6.常用方法
+## 5.常用方法
 
 ### 1.常用数组去重方案
 
@@ -1421,7 +1225,7 @@ function uniqueFunc(arr:any[], uniId:String){
 console.log(person,uniqueFunc(person, 'id'));
 ```
 
-## 7.css常用方法
+## 6.css常用方法
 
 **1.清除浮动**
 
@@ -1440,7 +1244,7 @@ console.log(person,uniqueFunc(person, 'id'));
 }
 ```
 
-## 8.小技巧
+## 7.小技巧
 
 ```js
 字符串之间的比较是比较字符编码的大小
@@ -1451,51 +1255,7 @@ console.log(person,uniqueFunc(person, 'id'));
 '23'*1<'3' //false
 ```
 
-## 9.http响应码
 
-**你所知道的http的响应码及含义？**
-
-1xx(临时响应)
-
-100: 请求者应当继续提出请求。
-
-101(切换协议) 请求者已要求服务器切换协议，服务器已确认并准备进行切换。
-
-2xx(成功)
-
-200：正确的请求返回正确的结果
-
-201：表示资源被正确的创建。比如说，我们 POST 用户名、密码正确创建了一个用户就可以返回 201。
-
-202：请求是正确的，但是结果正在处理中，这时候客户端可以通过轮询等机制继续请求。
-
-3xx(已重定向)
-
-300：请求成功，但结果有多种选择。
-
-301：请求成功，但是资源被永久转移。
-
-303：使用 GET 来访问新的地址来获取资源。
-
-304：请求的资源并没有被修改过
-
-4xx(请求错误)
-
-400：请求出现错误，比如请求头不对等。
-
-401：没有提供认证信息。请求的时候没有带上 Token 等。
-
-402：为以后需要所保留的状态码。
-
-403：请求的资源不允许访问。就是说没有权限。
-
-404：请求的内容不存在。
-
-5xx(服务器错误)
-
-500：服务器错误。
-
-501：请求还没有被实现。
 
 ## css方面
 
@@ -1581,79 +1341,9 @@ transition:all 2s; 所有属性从开始到变化结束需要两秒；
        }
 ```
 
-## webpack方面
- ```js
- const path = require("path");
 
-/*
-注意事项
-对一个单独的 module 对象定义了 rules 属性，里面包含两个必须属性：test 和 use。这告诉 webpack 编译器(compiler) 如下信息：
 
-“嘿，webpack 编译器，当你碰到「在 require()/import 语句中被解析为 '.css' 的路径」时
-，在你对它打包之前，先使用 'style-loader','css-loader' 转换一下。”
-*/
 
-module.exports = {
-  entry: "./src/main.js", //唯一入口文件
-  output: {
-    //出口配置
-    path: path.resolve(__dirname, "dist"), //打包后的文件存放的地方
-    filename: "bundle.js", //打包后输出文件的文件名
-  },
-  //loader 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。
-  //loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。
-  module: {
-    //模块 loader
-    rules: [
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-    ],
-  },
-  //插件目的在于解决 loader 无法实现的其他事。
-  plugins: [], //插件
-};
-
- ```
-
-## git
-
-```git
-git init  //初始化一个本地仓库
-
-git clone xxxxx  //克隆项目
-
-git add xxx  //添加xxx文件到缓冲区
-
-git add .  //添加所有文件到缓冲区
-
-git add --all  //添加所有文件到缓冲区(all可以添加被手动删除的文件而加"."不行)
-
-git commit -m  'xxx'  //提交说明
-
-git push  //推送到远程库
-
-git  branch  //查看分支 带*的表示当前分支
-
-git  branch -d xxx  //**删除 ** xxx分支(本地分支)
-
-git branch  xxxx  //**创建**  xxx分支
-
-git checkout xxxx  //**切换** xxxx分支
-
-git  checkout -b xxxx  //创建分支并切换到创建的分支 （本地分支）
-
-git  push  -u  origin xxxx  //第一次推送到远程xxx分支
-
-git  pull  //拉取线上分支代码
-
-git merge xxx  //合并xxx的内容到当前分支
-
-git remote  //查看当前的远程**仓库**（不是分支）
-
-git push origin --delete xxx  //以origin仓库为例（可通过git remote查看仓库）删除xxx分支（只删除远程，本地看之前是否存在可通过git branch -d xxx 删除）
-```
 
 
 

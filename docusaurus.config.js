@@ -59,15 +59,10 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'summary',
+            docId: 'readMe',
             position: 'left',
             label: '记录',
           },
-          /*{
-            to: '/blog',
-            label: '博客',
-            position: 'left'
-          },*/
           {
             href: 'http://139.198.117.53:3081',
             label: '图片demo',
@@ -86,7 +81,7 @@ const config = {
         ],
       },
       metadata: [
-        {name: 'keywords', content: '个人参考，个人总结，react，ts，给自己使用的文档。'},
+        {name: 'keywords', content: '个人参考，个人总结，react，js, ts，给自己使用的文档。'},
         {name: 'author', content: 'wzw'}
       ],
       footer: {

@@ -1,38 +1,13 @@
 ---
-id: summary
-title: 自我总结
+id: readMe
+title: 自述
 tags:
-  - react
-  - js基础
-  - js常用方法
-description: 这是一个js内容中间的页面，总结了大部分js常用方法及基础介绍。
-keywords: [react, js, js基础]
+  - 自述
+description: 这是一个关于作者本人的自述的页面。
+keywords: [自述]
 ---
-import  {useState} from 'react';
 
 
-export const  Home=({children, aa})=> {
- const  [value, setValue] = useState(0)
- const change=(e)=>{
-    setValue(e.target.value)
-  }
-  return (
-    <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              maxWidth: 200
-            }}>
-              <input type="password" placeholder="输入密码" onChange={change}/>
-              <span style={{
-                display:'inline-block',
-                padding:5,
-                backgroundColor:'cornsilk',
-                textAlign:"center"
-              }}>{value === 'js_summary' ? children : value ? '密码错误' : '请输入'}</span>
-            </div>
-  );
-}
-
-<Home><a href={'./js_summary'}>Let's Go</a></Home>
+**亲爱的朋友们你们好**
 
 
