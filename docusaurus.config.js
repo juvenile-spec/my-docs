@@ -86,7 +86,7 @@ const config = {
       ],
       footer: {
         style: 'dark',
-        copyright: `Copyright © ${new Date().getFullYear()}吴某人个人记录.浙ICP备2021040479号`,
+        copyright: `Copyright © ${new Date().getFullYear()}吴某人个人记录. <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2021040479号-1</a>`,
       },
       prism: {
         theme: lightCodeTheme,
