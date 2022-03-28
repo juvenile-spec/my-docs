@@ -1,13 +1,17 @@
 ---
 id: zwzj_git
-title: git命令
+title: git部分
 tags:
  - git
  - git命令
-description: 这是一个了解git命令的页面。
-keywords: [git,git命令]
+ - git规范
+description: 这是一个了解git的页面。
+keywords: [git, git命令, git规范]
 ---
 
+----
+
+## git 命令
 
 ```git
 git init  //初始化一个本地仓库
@@ -44,3 +48,50 @@ git remote  //查看当前的远程**仓库**（不是分支）
 
 git push origin --delete xxx  //以origin仓库为例（可通过git remote查看仓库）删除xxx分支（只删除远程，本地看之前是否存在可通过git branch -d xxx 删除）
 ```
+
+## git 规范
+
+```
+<type>(<scope>): <subject>
+```
+**注意冒号 : 后有空格**
+
+例如
+```
+feat(miniprogram): 增加了小程序模板消息相关功能
+```
+
+>scope选填表示commit的作用范围，如数据层、视图层，也可以是目录名称 subject必填用于对commit进行简短的描述 type必填表示提交类型。
+
+
+**值有以下几种：**
+
+| 类型 | 说明 |
+| :---: | :---: |
+| feat | 新功能 feature |
+| fix | 修复 bug |
+| docs | 文档注释 |
+| style | 代码格式(不影响代码运行的变动) |
+| refactor | 重构、优化(既不增加新功能，也不是修复bug) |
+| perf | 性能优化 |
+| test | 增加测试 |
+| chore | 构建过程或辅助工具的变动 |
+| revert | 回退 |
+| build | 打包 |
+
+
+**用例：**  
+```
+ feat(transaction): listen transaction changes, show result dialog  
+ 
+ fix(swap): slippage calculation;
+```
+
+
+
+
+
+
+
+
+

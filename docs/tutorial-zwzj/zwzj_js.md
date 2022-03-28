@@ -8,7 +8,7 @@ description: 这是一个js内容中间的页面，总结了大部分js常用方
 keywords: [js, js基础]
 ---
 
-
+----
 
 ## 1.js执行机制
 

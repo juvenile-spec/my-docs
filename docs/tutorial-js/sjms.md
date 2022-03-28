@@ -6,6 +6,8 @@ keywords: [js, js设计模式]
 tags:
   - 设计模式
 ---
+  
+----
 
 # Javascript设计模式
 

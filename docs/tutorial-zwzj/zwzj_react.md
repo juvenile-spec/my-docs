@@ -11,6 +11,7 @@ description: 这是一个react部分总结的页面。
 keywords: [react部分总结, react, 父子组件, 生命周期, HOC, redux等]
 ---
 
+----
 
 ## 1.父子组件传值(类组件)
 

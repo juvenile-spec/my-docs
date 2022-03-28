@@ -6,6 +6,8 @@ tags:
 description: 这是一个关于nginx的配置说明。
 keywords: [nginx, nginx执行, nginx说明方法, nginx配置案例]
 ---
+ 
+----
 
 ## 1.准备目录
 
