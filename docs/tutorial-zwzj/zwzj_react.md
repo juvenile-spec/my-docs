@@ -13,14 +13,14 @@ keywords: [react部分总结, react, 父子组件, 生命周期, HOC, redux等]
 
 ----
 
-## 1.父子组件传值(类组件)
+## 1.父子组件传值
 
-### 父组件调用子组件方法及传参
-
-**父组件:**
+### 父组件调用子组件方法及传参(类组件)
 
 ```js
-export default class Fz extends Component {
+//父组件
+
+export default class Parent extends Component {
   handleF=()=>{
      this.refsz.method('父组件调用了')
   }
@@ -28,17 +28,15 @@ export default class Fz extends Component {
     return (
       <div >
         <Button onClick={this.handleF}>父组件按钮</Button>
-        <Add refsZ={el=>this.refsz=el}/>
+        <Children refsZ={el=>this.refsz=el}/>
       </div>
     )
   }
 }
-```
 
-**子组件:**
+//子组件
 
-```js
-export default class Add extends Component {
+export default class Children extends Component {
   componentDidMount() {
     this.props.refsZ(this)
   }
@@ -49,33 +47,76 @@ export default class Add extends Component {
         return  <></>
     }
 }
+
+```
+### 父组件调用子组件方法及传参(函数组件)
+```tsx
+import React, { memo, useRef, useImperativeHandle, forwardRef} from "react";
+import {Button} from "antd";
+
+//子组件
+
+//需要注意 forwardRef 和 useImperativeHandle
+
+const Children = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => ({
+    clickChild
+  }))
+
+  const clickChild = (arg: any) => {
+    console.log(arg, '子组件的方法')
+  }
+
+  return (
+    <></>
+  )
+})
+
+export default Children;
+
+//父组件
+
+const Parent = memo(() => {
+  const childRef = useRef<{clickChild:(arg:string)=>void} | null>(null);
+
+  const handleClick = () => {
+    childRef.current?.clickChild('父组件调用了')
+  }
+
+  return (
+    <div>
+      <Button onClick={handleClick}>我是父按钮</Button>
+      <Children ref={childRef}/>
+    </div>
+  )
+})
+
+export default Parent;
 ```
 
-### 子组件调用父组件方法及传参
 
+### 子组件调用父组件方法及传参(类组件)
 
-
-**父组件:**
 
 ```js
-export default class Fz extends Component {
+//父组件
+
+export default class Parent extends Component {
   handleF=(...arg)=>{
      console.log(arg,'(我是父组件方法)')
   }
   render() {
     return (
       <div >
-        <Add click={this.handleF}/>
+        <Children click={this.handleF}/>
       </div>
     )
   }
 }
-```
 
-**子组件:**
+//子组件
 
-```js
-export default class Add extends Component {
+export default class Children extends Component {
   handleClick=(e)=>{
     this.props.click('(子组件调用父组件方法给父组件传值)','(方案2)',e)
   }
@@ -91,10 +132,48 @@ export default class Add extends Component {
 }
 ```
 
+### 子组件调用父组件方法及传参(函数组件)
+
+```tsx
+import React, {memo, FC} from "react";
+import {Button} from "antd";
+
+//子组件
+
+const Children: FC<{ click: (...arg: any) => void }> = memo(({click}) => {
+
+  return (
+    <div>
+      <Button onClick={() => click('子组件调用成功', '其他')}>我是子组件</Button>
+    </div>
+  )
+})
+
+export default Children;
+
+//父组件
+
+const Parent = memo(() => {
+
+  const handleClick = (...arg: any) => {
+    console.log(...arg, '我是父组件')
+  }
+
+  return (
+    <div>
+      <Children click={handleClick}/>
+    </div>
+  )
+})
+
+export default Parent;
+```
+
+
 ## 2.ref获取DOM(类组件)
 
 ```js
-export default class Fz extends Component {
+export default class Parent extends Component {
   constructor(props) {
     super(props);
     this.MyRef = React.createRef()
@@ -203,3 +282,38 @@ ReactDOMServer.renderToString(<App />)
 
 **工作流程**是 view 调用 store 的 dispatch 接收 action 传入 store，reducer 进行 state 操作，view 通过 store 提供的 getState 获取最新的数据
 
+## 9.常用Hook
+
+### Hook规则
+- **只能在函数最外层调用 Hook。不要在循环、条件判断或者子函数中调用**
+- **只能在 React 的函数组件中调用 Hook。不要在其他 JavaScript 函数中调用**
+
+### useState
+
+```tsx
+import React, {memo, useState} from "react";
+import {Button} from "antd";
+
+const Example = memo(() => {
+
+  const [count, setCount] = useState<number>(0);
+
+  return (
+    <div>
+      <p>数量：{count}</p>
+      <Button onClick={() => setCount(count + 1)}>
+        点击
+      </Button>
+    </div>
+  );
+})
+
+export default Example;
+```
+
+### useEffect
+
+```tsx
+
+//太忙了，待续...
+```
