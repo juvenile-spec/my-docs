@@ -7,8 +7,9 @@ tags:
  - 生命周期
  - redux
  - HOC
+ - Hooks
 description: 这是一个react部分总结的页面。
-keywords: [react部分总结, react, 父子组件, 生命周期, HOC, redux等]
+keywords: [react部分总结, react, 父子组件, 生命周期, HOC, redux, Hooks等]
 ---
 
 ----
@@ -314,6 +315,132 @@ export default Example;
 ### useEffect
 
 ```tsx
+import React, {memo, useEffect, useState} from "react";
+import {Button} from "antd";
 
-//太忙了，待续...
+/*
+* useEffect第二参数的情况：
+*   1.如果不传参,会每次 render 后都执行。
+*   2.传入的是空数组，则只在初始化执行一次，等同类组件componentDidMount。
+*   3.传入有值的数组，会比较每一个值，有一个值变化就重新执行。
+*   4.由于第二参数采用浅比较方式，复杂类型参数会导致死循环。
+* */
+
+const Example = memo(() => {
+
+  const [des1, setDes1] = useState<string>('');
+  const [des2, setDes2] = useState<string>('我不变没机会');
+  const [des3, setDes3] = useState<string>('');
+  const [des4, setDes4] = useState<any[]>([]);
+
+  useEffect(() => {
+    //当第二个参数不传，每次 render 后都执行。
+    setDes1('我不想传第二个参数')
+    console.log(des1, 'des1')
+  })
+
+  //类似componentDidMount和componentDidUpdate
+  useEffect(() => {
+    //传入的是空数组，则只在初始化执行一次。
+    setDes2('我只执行一次啊') 
+    console.log(des2, 'des2') //我不变没机会
+
+    //类似componentWillUnmount
+    return () => {
+      setDes2('')
+      console.log('我清除了des2的内容', 'des2')
+    }
+  }, [])
+
+  useEffect(() => {
+    //传入有值的数组，会比较每一个值，有一个值变化就重新执行。
+    setDes3('我想变你就要更新')
+    console.log(des3, 'des3')
+  }, [des3])
+
+  /*useEffect(()=>{
+    //由于第二参数采用浅比较方式，复杂类型参数会导致死循环。
+    setDes4([1])
+    console.log('死循环了,芭比Q了',des4)
+  },[des4])*/
+  //可使用 JSON.stringify(), useRef, useMemo 封装后调用解决死循环问题。
+  
+  return (
+    <>
+      <Button onClick={() => {
+        setDes3('变一下')
+      }}>des3</Button>
+      <Button onClick={() => {
+        setDes4([2])
+      }}>des4</Button>
+    </>
+  );
+})
+
+export default Example;
+```
+
+### useRef
+
+```tsx
+import React, {memo, useEffect, useState, useRef} from "react";
+import {Button} from "antd";
+
+/*
+* 使用场景:
+* 可以获取组件的实例。
+* 利用 useRef 解决由于 hooks 函数式组件产生闭包时无法获取最新 state 的问题。
+* 存放想要持久化( instant )的数据, 该数据不和 react 组件树的渲染绑定。该数据可以是任何类型，数字、数组、对象、函数，都可以。
+*
+* 用法:
+* 每次渲染useRef返回值都不变
+* 变更 .current 属性不会引发组件重新渲染;
+* ref.current发生变化应该作为Side Effect(因为它会影响下次渲染),所以不应该在render阶段更新current属性
+* */
+
+
+//封装一个获取上一步的值 --可能在未来 React 会自带一个 usePrevious Hook。
+//useEffect 是在每次渲染之后才会触发副作用函数的，是延迟执行的。而 return 语句是同步的，所以 return 的时候， ref.current 还是旧值。
+const usePrevious = <T extends {}>(state: T) => {
+  const ref: React.MutableRefObject<T | null> = useRef<T>(state);
+  useEffect(() => {
+    ref.current = state
+  })
+  return ref.current;
+}
+
+const Example = memo(() => {
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const [count, setCount] = useState<number>(0);
+  const countRef = usePrevious<number>(count);
+  const count2Ref = useRef(count);
+  count2Ref.current = count;
+
+  return (
+    <>
+      <input type="text" ref={inputRef}/>
+      <Button onClick={() => {
+        // 通过 .current 拿到当前 dom 元素
+        // 可使用原生 dom 事件
+        console.log(inputRef.current, inputRef.current?.value)
+      }}>获取inputDom节点</Button>
+
+      <div>{countRef}_countRef--{count}_count--{count2Ref.current}_count2Ref</div>
+
+      <Button onClick={() => {
+        setCount(count + 1)
+      }}>count点击</Button>
+    </>
+  );
+})
+
+export default Example;
+```
+
+### useMemo
+
+```tsx
+ //待续...
 ```
