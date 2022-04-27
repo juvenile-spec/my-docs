@@ -439,8 +439,57 @@ const Example = memo(() => {
 export default Example;
 ```
 
-### useMemo
+### useMemo-useCallback
 
 ```tsx
- //待续...
+import React, {memo, FC, useState, useMemo, useCallback} from "react";
+import {Button} from "antd";
+
+/*
+* 子组件没有从父组件传入的props或者传入的props仅仅为简单数值类型使用memo即可。
+* 
+* */
+
+const Child: FC<any> = memo(({data, click}) => {
+  console.log('Child')
+  return (
+    <>
+      <div>count:{data}</div>
+      <Button onClick={click}>子组件点击</Button>
+    </>
+  )
+})
+const Child2: FC<any> = memo(({data}) => {
+  console.log('Child2')
+  return (
+    <>
+      <p>姓名：{data.name}</p>
+      <p>体重：{data.weight} kg</p>
+    </>
+  )
+})
+
+const Example = () => {
+  const [userInfo, setUserInfo] = useState({name: '名字', weight: 35});
+  const [count, setCount] = useState(0)
+
+  const state = useMemo(() => {
+    return userInfo
+  }, [userInfo, count])
+
+  const click = useCallback(() => {
+    setCount(count + 1)
+  }, [count])
+
+  console.log('parent')
+
+  return (
+    <>
+      <Child data={count} click={click}/>
+      <Child2 data={state}/>
+    </>
+  );
+}
+
+export default Example;
 ```
