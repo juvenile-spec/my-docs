@@ -60,6 +60,15 @@ const sidebars = {
           'tutorial-other/GitHub_automation'
       ],
     },
+    {
+      type: 'category',
+      label: 'demo',
+      collapsible: true,
+      collapsed: false,
+      items: [
+        'tutorial-demo/reptile',
+      ],
+    },
   ],
 
 };
