@@ -16,7 +16,7 @@ keywords: [git, git命令, git规范]
 ```git
 git init  //初始化一个本地仓库
 
-git clone xxxxx  //克隆项目
+git clone xxx  //克隆项目
 
 git add xxx  //添加xxx文件到缓冲区
 
@@ -28,23 +28,25 @@ git commit -m  'xxx'  //提交说明
 
 git push  //推送到远程库
 
-git  branch  //查看分支 带*的表示当前分支
+git fetch //从远程分支拉取代码
 
-git  branch -d xxx  //**删除 ** xxx分支(本地分支)
+git branch  //查看分支 带*的表示当前分支
 
-git branch  xxxx  //**创建**  xxx分支
+git branch -d xxx  //删除xxx分支(本地分支)
 
-git checkout xxxx  //**切换** xxxx分支
+git branch  xxx  //创建xxx分支
 
-git  checkout -b xxxx  //创建分支并切换到创建的分支 （本地分支）
+git checkout xxx  //切换xxx分支
 
-git  push  -u  origin xxxx  //第一次推送到远程xxx分支
+git checkout -b xxx  //创建分支并切换到创建的分支 （本地分支）
 
-git  pull  //拉取线上分支代码
+git push  -u  origin xxx  //第一次推送到远程xxx分支
+
+git pull  //拉取线上分支代码
 
 git merge xxx  //合并xxx的内容到当前分支
 
-git remote  //查看当前的远程**仓库**（不是分支）
+git remote  //查看当前的远程仓库（不是分支）
 
 git push origin --delete xxx  //以origin仓库为例（可通过git remote查看仓库）删除xxx分支（只删除远程，本地看之前是否存在可通过git branch -d xxx 删除）
 ```

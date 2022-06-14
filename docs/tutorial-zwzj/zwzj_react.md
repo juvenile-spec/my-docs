@@ -242,16 +242,44 @@ export default class Parent extends Component {
 
 我们将它们称为**纯组件**，因为它们可以接受任何动态提供的子组件，但它们不会修改或复制其输入组件中的任何行为。
 
-```js
-const EnhancedComponent = higherOrderComponent(WrappedComponent)
-```
-
 **HOC 有很多用例：**
 
 1. 代码复用，逻辑抽象化
 2. 渲染劫持
 3. 抽象化和操作状态（`state`）
 4. 操作属性（`props`）
+
+>例子：
+
+```tsx
+import React from 'react';
+
+const App = (props: {}) => {
+    console.log(props)
+    return <div>test</div>
+}
+
+//扁平化的高阶组件（推荐使用）
+const WrappedComponent = (config = {}, Comp: React.ComponentType) => {
+    return (props: any) => {
+        return <Comp {...config} {...props} />
+    }
+}
+
+//第二种方式的高阶组件
+/* const WrappedComponent = (config = {}) => {
+    return (Comp: any) => {
+      return (props: any) => {
+        return <Comp {...config} {...props} />
+      }
+    }
+  } 
+*/
+
+const Instance = WrappedComponent({ name: 'test' }, App)
+// const Instance = WrappedComponent({name: 'test'})(App)
+export default Instance
+```
 
 ## 6.如何实现 Server Side Rendering 或 SSR?
 
